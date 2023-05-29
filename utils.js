@@ -1,3 +1,4 @@
+// Generate storage in the disk
 const generateStorage = (dirName) => {
 	return multer.diskStorage({
 	  destination: function (req, file, cb) {
@@ -15,6 +16,7 @@ const generateStorage = (dirName) => {
 	});
   };
   
+  //Generate filter for file size and type
   const generateFilter = (allowedFileSize, allowedFileTypes) => (req, file, callback) => {
 	const acceptableExtensions = allowedFileTypes;
 	const mime = file.mimetype;
@@ -36,11 +38,13 @@ const generateStorage = (dirName) => {
   });
 
 
-  const key = String(envs.encryptSecretKey);
+//Algorithm for data encryption and decryption
+const key = String(envs.encryptSecretKey);
 const iv = key.substring(0, 16);
 const keyBuffer = Buffer.from(key, "utf-8");
 const ivBuffer = Buffer.from(iv, "utf-8");
 
+// Get algorythm type
 const getAlgorithm = (keyBase) => {
   let key = Buffer.from(keyBase, "base64");
   switch (key.length) {
@@ -52,6 +56,7 @@ const getAlgorithm = (keyBase) => {
   throw new Error("Invalid key length: " + key.length);
 };
 
+// Encypt data
 export const encryptData = (text) => {
   if (!text) return text;
   try {
@@ -65,6 +70,7 @@ export const encryptData = (text) => {
   }
 };
 
+//Decrypt data
 export const decryptData = (text) => {
   if (!text) return text;
   try {
@@ -78,6 +84,7 @@ export const decryptData = (text) => {
   }
 };
 
+// Create log files
 export const createLogFile = async (fileName, fileData) => {
 	let obj = {
 	  logs: [],
@@ -104,6 +111,7 @@ export const createLogFile = async (fileName, fileData) => {
 	});
   };
 
+  //Get path of file
   const getPath = (req, file, dir) => {
 	if (!file) {
 	  return null;
@@ -112,6 +120,7 @@ export const createLogFile = async (fileName, fileData) => {
 	return `${req.protocol}://${req.headers.host}/uploads/${dir}/${file}`;
   };
   
+  // Get path of file based on keys
   export const GET_FILE_URL = {
 	diagnosis: (req, file) => {
 	  return getPath(req, file, UPLOAD_DIRECTORIES.DIAGNOSIS);

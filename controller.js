@@ -1,3 +1,4 @@
+// download notice
 export const noticeData = async (req, res, next) => {
   try {
     let noticeIds = null;
@@ -57,6 +58,7 @@ export const noticeData = async (req, res, next) => {
 };
 
 
+// Download inquiry data
 export const inquiryData = async (req, res, next) => {
     try {
       let inquiryIds = null;
