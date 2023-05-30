@@ -11,6 +11,7 @@ export const noticeData = async (req, res, next) => {
       let data = [];
 
       data = noticeIds.map((record) => {
+        // Response keys are in korean as it is required
         return {
           id: record.notices_id,
           범주: record.category,
@@ -35,6 +36,7 @@ export const noticeData = async (req, res, next) => {
       const listData = await noticeService.noticeSearch(title);
 
       data = listData.map((record) => {
+        // Response keys are in korean as it is required
         return {
           id: record.notices_id,
           범주: record.category,
@@ -68,6 +70,7 @@ export const inquiryData = async (req, res, next) => {
       if (inquiryIds) {
         let listData = [];
         listData = inquiryIds.map((item) => {
+          // Response keys are in korean as it is required
           return {
             인덱스: item.id,
             제목: item.title,
@@ -101,6 +104,7 @@ export const inquiryData = async (req, res, next) => {
         }
         );
         inquiries = listData.map((item) => {
+          // Response keys are in korean as it is required
           return {
             인덱스: item.id,
             제목: item.title,
